@@ -1,4 +1,7 @@
+package model;
+
 public class Kund {
+    private int id;
     private String förnamn;
     private String efternamn;
     private String personnummer;
@@ -8,9 +11,11 @@ public class Kund {
     private String postnummer;
     private String lösenord;
 
-    public Kund(String förnamn, String efternamn, String personnummer, String telefonnummer,
-                String adress, String ort, String postnummer, String lösenord) {
+    public Kund() {}
 
+    public Kund(int id, String förnamn, String efternamn, String personnummer, String telefonnummer,
+                String adress, String ort, String postnummer, String lösenord) {
+        this.id = id;
         this.förnamn = förnamn;
         this.efternamn = efternamn;
         this.personnummer = personnummer;
@@ -20,6 +25,14 @@ public class Kund {
         this.postnummer = postnummer;
         this.lösenord = lösenord;
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFörnamn() {

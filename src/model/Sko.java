@@ -1,20 +1,23 @@
+package model;
+
 public class Sko {
     private int id;
     private String namn;
     private int pris;
-    private String märke;
+    private String märkeNamn;
     private String färg;
     private int storlek;
-    private String kategori;
+    private int lagerstatus;
+    private String kategoriNamn;
 
-    public Sko(int id, String namn, int pris, String märke, String färg, int storlek, String kategori) {
+    public Sko (int id, String namn, int pris, String märkeNamn, String färg, int storlek, String kategoriNamn) {
         this.id = id;
         this.namn = namn;
         this.pris = pris;
-        this.märke = märke;
+        this.märkeNamn = märkeNamn;
         this.färg = färg;
         this.storlek = storlek;
-        this.kategori = kategori;
+        this.kategoriNamn = kategoriNamn;
     }
 
     public int getId() {
@@ -41,12 +44,12 @@ public class Sko {
         this.pris = pris;
     }
 
-    public String getMärke() {
-        return märke;
+    public String getMärkeNamn() {
+        return märkeNamn;
     }
 
-    public void setMärke(String märke) {
-        this.märke = märke;
+    public void setMärkeNamn(String märkeNamn) {
+        this.märkeNamn = märkeNamn;
     }
 
     public String getFärg() {
@@ -65,11 +68,19 @@ public class Sko {
         this.storlek = storlek;
     }
 
-    public String getKategori() {
-        return kategori;
+    public int getLagerstatus() {
+        return lagerstatus;
     }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
+    public void setLagerstatus(int lagerstatus) {
+        this.lagerstatus = lagerstatus;
+    }
+
+    public String getKategoriNamn() {
+        return kategoriNamn;
+    }
+
+    public void setKategoriNamn(String kategoriNamn) {
+        this.kategoriNamn = kategoriNamn;
     }
 }
