@@ -10,6 +10,7 @@ public class Sko {
     private int lagerstatus;
     private String kategoriNamn;
 
+
     public Sko (int id, String namn, int pris, String märkeNamn, String färg, int storlek, String kategoriNamn) {
         this.id = id;
         this.namn = namn;

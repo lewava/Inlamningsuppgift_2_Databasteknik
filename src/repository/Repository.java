@@ -84,8 +84,8 @@ public class Repository {
         return skoName;
     }
 
-    public List<Beställning> getOrders() {
-        List<Beställning> orderList = new ArrayList<>();
+    public HashMap<String, Beställning> getOrders() {
+        HashMap<String, Beställning> orderList = new HashMap<>();
 
         try (Connection myConn = DriverManager.getConnection(properties.getProperty("connectionString"),
                 properties.getProperty("name"),
@@ -94,7 +94,7 @@ public class Repository {
              ResultSet myRs = myStmt.executeQuery("SELECT * FROM beställning;")) {
 
             while (myRs.next()) {
-                orderList.add(new Beställning(myRs.getInt(1),
+                orderList.put(myRs.getString(2), new Beställning(myRs.getInt(1),
                         myRs.getString(2), myRs.getInt(3), myRs.getInt(4)));
             }
         } catch (SQLException e) {

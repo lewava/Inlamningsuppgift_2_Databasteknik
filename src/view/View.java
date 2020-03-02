@@ -1,12 +1,10 @@
 package view;
 
-import controller.NewController;
+import controller.Controller;
 import model.Beställning;
-import repository.Repository;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class View extends JFrame {
 
@@ -19,18 +17,20 @@ public class View extends JFrame {
     private JButton loginButton = new JButton("Login");
     private JFrame selectOrderFrame = new JFrame();
     private Container selectOrderContainer = selectOrderFrame.getContentPane();
-    private JComboBox<String> selectOrderOrders = new JComboBox();
-    private JButton selectOrderNext = new JButton("Gå vidare");
+    private JComboBox<Beställning> selectOrderOrders = new JComboBox();
+    private JLabel selectOrderLabel = new JLabel("Välj Beställning");
+    private JButton chooseOrder = new JButton("Välj beställning");
+    private JButton newOrder = new JButton("Ny Beställning");
     private JFrame shoppingCartFrame = new JFrame();
     private Container shoppingCartContainer = shoppingCartFrame.getContentPane();
     private JLabel shoppingCartLabel = new JLabel("Varor");
     private JComboBox<String> shoppingCartProduct = new JComboBox<>();
     private JTextArea shoppingCartInfo = new JTextArea();
     private JButton shoppingCartAddToCart = new JButton("AddToCart");
-    private Repository repository = new Repository();
-    private NewController controller = new NewController(this, loginFrame, selectOrderFrame, shoppingCartFrame,
-            loginNameLabel, loginPasswordLabel, loginUserTextField, loginPasswordField, loginButton, selectOrderOrders,
-            selectOrderNext, shoppingCartLabel, shoppingCartProduct, shoppingCartInfo, shoppingCartAddToCart);
+    private JButton printOrder = new JButton("Skriv ut beställning");
+    private Controller controller = new Controller(loginFrame, selectOrderFrame, shoppingCartFrame,
+            loginUserTextField, loginPasswordField, loginButton, selectOrderOrders, chooseOrder,
+            shoppingCartProduct, shoppingCartInfo, shoppingCartAddToCart, newOrder, printOrder);
 
     public View() {
         loginView();
@@ -95,40 +95,35 @@ public class View extends JFrame {
     }
 
     public void setLocationAndSizeForSelectOrder() {
-        selectOrderOrders.setBounds(50, 30, 200, 30);
-        selectOrderNext.setBounds(85, 80, 125, 30);
+        selectOrderLabel.setBounds(110, 10, 100, 30);
+        selectOrderOrders.setBounds(50, 45, 200, 30);
+        newOrder.setBounds(155, 90, 100, 30);
+        chooseOrder.setBounds(45, 90, 100, 30);
     }
 
     public void addComponentsToContainerForSelectOrder() {
         selectOrderContainer.add(selectOrderOrders);
-        selectOrderContainer.add(selectOrderNext);
+        selectOrderContainer.add(chooseOrder);
+        selectOrderContainer.add(selectOrderLabel);
+        selectOrderContainer.add(newOrder);
     }
 
     public void addActionEventForSelectOrder() {
         selectOrderOrders.addActionListener(controller);
-        selectOrderNext.addActionListener(controller);
+        chooseOrder.addActionListener(controller);
+        newOrder.addActionListener(controller);
     }
 
-    public void fillComboBoxForSelectOrder(int currentCustomer) {
-        List<Beställning> orderList = repository.getOrders();
-
-        selectOrderOrders.addItem("Ny Beställning");
-        for (Beställning b : orderList) {
-            if (b.getKundId() == currentCustomer)
-                selectOrderOrders.addItem(b.getDatum());
-        }
-    }
 
     public void shoppingCartView() {
         setLayoutForShoppingCart();
         setLocationAndSizeForShoppingCart();
         AddComponentsToContainerForShoppingCart();
-        fillComboBoxForShoppingCart();
         addActionEventForShoppingCart();
         shoppingCartInfo.setEditable(false);
         shoppingCartInfo.setFont(new Font("Serif", Font.BOLD, 15));
         shoppingCartFrame.setTitle("Shopping cart");
-        shoppingCartFrame.setSize(350, 350);
+        shoppingCartFrame.setSize(350, 370);
         shoppingCartFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         shoppingCartFrame.setLocationRelativeTo(null);
         shoppingCartFrame.setResizable(false);
@@ -143,7 +138,8 @@ public class View extends JFrame {
         shoppingCartLabel.setBounds(50, 23, 100, 30);
         shoppingCartProduct.setBounds(125, 25, 150, 30);
         shoppingCartInfo.setBounds(40, 80, 250, 150);
-        shoppingCartAddToCart.setBounds(65, 255, 200, 30);
+        shoppingCartAddToCart.setBounds(65, 245, 200, 30);
+        printOrder.setBounds(65, 290, 200, 30);
     }
 
     public void AddComponentsToContainerForShoppingCart() {
@@ -151,18 +147,13 @@ public class View extends JFrame {
         shoppingCartContainer.add(shoppingCartProduct);
         shoppingCartContainer.add(shoppingCartInfo);
         shoppingCartContainer.add(shoppingCartAddToCart);
-    }
-
-    public void fillComboBoxForShoppingCart() {
-        List<String> skoName = repository.getShoeNames();
-        for (String s : skoName) {
-            shoppingCartProduct.addItem(s);
-        }
+        shoppingCartContainer.add(printOrder);
     }
 
     public void addActionEventForShoppingCart() {
         shoppingCartProduct.addActionListener(controller);
         shoppingCartAddToCart.addActionListener(controller);
+        printOrder.addActionListener(controller);
     }
 }
 

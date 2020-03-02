@@ -44,4 +44,9 @@ public class Beställning {
     public void setBeställningsStatusId(int beställningsStatusId) {
         this.beställningsStatusId = beställningsStatusId;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Beställning: %d, Datum: %s", getId(), getDatum());
+    }
 }
